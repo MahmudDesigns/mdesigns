@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahmud Designs</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#ff4da6',secondary:'#000000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/png" href="Images/MD%20Favicon%20(1).png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            cursor: none;
+        }
+        
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ff4da6;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+        
+        .custom-cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ff4da6;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: 0.1s;
+        }{
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #ff4da6 0%, #000000 100%);
+        }
+        .text-shadow {
+            text-shadow: 0 0 15px rgba(255, 77, 166, 0.7);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02) rotate(1deg);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+        }
+        .service-card {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .service-card:hover {
+            transform: rotateY(180deg);
+        }
+        .service-front, .service-back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .service-back {
+            transform: rotateY(180deg);
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 77, 166, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 77, 166, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 77, 166, 0); }
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #ff4da6;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ff4da6 }
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        .glow-button {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .glow-button:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 77, 166, 0.4);
+            border-radius: 8px;
+            z-index: -1;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+        .glow-button:hover:after {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+        .shape {
+            position: absolute;
+            opacity: 0.5;
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white bg-opacity-90 backdrop-blur-sm z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+		<a href="index.html" class="flex items-center">
+                    <img src="Images/MD_Logo-removebg-Black.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" />
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+		<div class="custom-cursor" id="custom-cursor"></div>
+    		<div class="custom-cursor-follower" id="custom-cursor-follower"></div>
+		    <a href="index.html" class="text-gray-800 hover:text-primary transition-colors duration-300">Home</a>
+                    <a href="about.html" class="text-gray-800 hover:text-primary transition-colors duration-300">About</a>
+                    <a href="services.html" class="text-gray-800 hover:text-primary transition-colors duration-300">Services</a>
+                    <a href="portfolio.html" class="text-gray-800 hover:text-primary transition-colors duration-300">Portfolio</a>
+                    <a href="contacts.html" class="text-gray-800 hover:text-primary transition-colors duration-300">Contact</a>
+                    <a href="https://wa.me/254113832100" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap">Get in Touch</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-800 hover:text-primary">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-menu-line ri-lg"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center hero-gradient overflow-hidden">
+        <div class="shape w-64 h-64 bg-white opacity-10 rounded-full top-20 right-20"></div>
+        <div class="shape w-32 h-32 bg-primary opacity-20 rounded-full bottom-20 left-20"></div>
+        <div class="shape w-48 h-48 bg-white opacity-10 rounded-3xl bottom-40 right-40"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 text-shadow">
+                    Hi, I'm Mahmud — <br>I Design Timeless Experiences
+                </h1>
+                <p class="text-xl text-white opacity-90 mb-8 typewriter max-w-2x1">
+                    Crafting seamless digital designs with creativity and function
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="portfolio.html" class="glow-button bg-primary text-white px-8 py-3 !rounded-button hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap">
+                        View My Work
+                    </a>
+                    <a href="https://wa.me/254113832100" class="bg-transparent border-2 border-white text-white px-8 py-3 !rounded-button hover:bg-white hover:text-primary transition-all duration-300 whitespace-nowrap">
+                        Let's Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 relative">
+                    <div class="relative w-full max-w-md mx-auto">
+                        <div class="absolute inset-0 border-2 border-primary rounded-2xl transform rotate-3"></div>
+                        <img src="Images\MeAlonee.jpg" 
+                             alt="Mahmud's Portrait" 
+                             class="relative z-10 rounded-2xl shadow-xl w-full h-auto object-cover">
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-2">About Me</h2>
+                    <div class="w-20 h-1 bg-primary mb-6"></div>
+                    <p class="text-gray-700 mb-6">
+                        With over 8 years of experience in digital design, I specialize in creating user-centered experiences that drive engagement and conversion. My approach combines aesthetic sensibility with strategic thinking to deliver solutions that not only look beautiful but also perform exceptionally well.
+                    </p>
+                    <p class="text-gray-700 mb-8">
+                        I've collaborated with startups, agencies, and established brands across various industries, helping them elevate their digital presence and connect meaningfully with their audiences.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Skills</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span>UI/UX Design</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span>Web Development</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span>Brand Identity</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <span>Motion Design</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Experience</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                        <i class="ri-briefcase-line"></i>
+                                    </div>
+                                    <span>Senior Designer at Artify</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                        <i class="ri-briefcase-line"></i>
+                                    </div>
+                                    <span>Lead UX at TechVision</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                        <i class="ri-briefcase-line"></i>
+                                    </div>
+                                    <span>Freelance Designer</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center text-primary mr-2">
+                                        <i class="ri-briefcase-line"></i>
+                                    </div>
+                                    <span>Design Mentor</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="about.html" class="inline-block bg-primary text-white px-6 py-3 !rounded-button hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap">
+                        Get to know Me
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold mb-2">My Services</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray-700">
+                    I offer comprehensive design solutions tailored to meet your specific needs and goals. Each service is delivered with meticulous attention to detail and a focus on results.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="relative h-80 perspective">
+                    <div class="service-card w-full h-full">
+                        <div class="service-front bg-white rounded-lg shadow-lg p-8 flex flex-col items-center text-center">
+                            <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-6">
+                                <i class="ri-layout-4-line ri-xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">UI/UX Design</h3>
+                            <p class="text-gray-600">Creating intuitive, engaging user experiences that delight and convert.</p>
+                            <div class="mt-6 text-primary">Flip to learn more</div>
+                        </div>
+                        <div class="service-back bg-primary rounded-lg shadow-lg p-8 flex flex-col items-center text-center">
+                            <h3 class="text-xl font-semibold text-white mb-4">UI/UX Design</h3>
+                            <ul class="text-white text-left space-y-2">
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>User Research & Personas</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Wireframing & Prototyping</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Usability Testing</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Responsive Design</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="relative h-80 perspective">
+                    <div class="service-card w-full h-full">
+                        <div class="service-front bg-white rounded-lg shadow-lg p-8 flex flex-col items-center text-center">
+                            <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-6">
+                                <i class="ri-code-s-slash-line ri-xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Web Development</h3>
+                            <p class="text-gray-600">Building fast, responsive, and accessible websites that perform beautifully.</p>
+                            <div class="mt-6 text-primary">Flip to learn more</div>
+                        </div>
+                        <div class="service-back bg-primary rounded-lg shadow-lg p-8 flex flex-col items-center text-center">
+                            <h3 class="text-xl font-semibold text-white mb-4">Web Development</h3>
+                            <ul class="text-white text-left space-y-2">
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Frontend Development</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>CMS Integration</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Performance Optimization</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>E-commerce Solutions</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="relative h-80 perspective">
+                    <div class="service-card w-full h-full">
+                        <div class="service-front bg-white rounded-lg shadow-lg p-8 flex flex-col items-center text-center">
+                            <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-6">
+                                <i class="ri-palette-line ri-xl text-primary"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Brand Identity</h3>
+                            <p class="text-gray-600">Crafting distinctive visual identities that resonate with your audience.</p>
+                            <div class="mt-6 text-primary">Flip to learn more</div>
+                        </div>
+                        <div class="service-back bg-primary rounded-lg shadow-lg p-8 flex flex-col items-center text-center">
+                            <h3 class="text-xl font-semibold text-white mb-4">Brand Identity</h3>
+                            <ul class="text-white text-left space-y-2">
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Logo Design</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Visual Identity Systems</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Brand Guidelines</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <span>Marketing Collateral</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold mb-2">Featured Work</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray-700">
+                    A selection of my recent projects showcasing my design approach and problem-solving capabilities.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item card-hover rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="https://readdy.ai/api/search-image?query=modern%20minimalist%20e-commerce%20website%20design%20for%20fashion%20brand%2C%20showing%20clean%20layout%20with%20product%20grid%2C%20elegant%20typography%2C%20high-end%20fashion%20photography%2C%20professional%20UI%20design%20mockup%20on%20screen&width=600&height=450&seq=2&orientation=landscape" 
+                         alt="E-commerce Website" 
+                         class="w-full h-64 object-cover object-top">
+                    <div class="portfolio-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transition-opacity duration-300">
+                        <h3 class="text-xl font-semibold text-white mb-2">Luxe Fashion</h3>
+                        <p class="text-white text-center mb-4">E-commerce website redesign with 43% increase in conversion rate</p>
+                        <a href="portfolio.html" class="bg-white text-primary px-4 py-2 !rounded-button hover:bg-gray-100 transition-colors duration-300 whitespace-nowrap">View Project</a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item card-hover rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="https://readdy.ai/api/search-image?query=mobile%20app%20UI%20design%20for%20fitness%20tracking%20application%2C%20showing%20dashboard%20with%20activity%20stats%2C%20workout%20plans%2C%20clean%20modern%20interface%20with%20graphs%20and%20progress%20indicators%2C%20professional%20UI%20design%20mockup%20on%20smartphone&width=600&height=450&seq=3&orientation=landscape" 
+                         alt="Fitness App" 
+                         class="w-full h-64 object-cover object-top">
+                    <div class="portfolio-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transition-opacity duration-300">
+                        <h3 class="text-xl font-semibold text-white mb-2">FitTrack Pro</h3>
+                        <p class="text-white text-center mb-4">Fitness tracking app with personalized coaching features</p>
+                        <a href="portfolio.html" class="bg-white text-primary px-4 py-2 !rounded-button hover:bg-gray-100 transition-colors duration-300 whitespace-nowrap">View Project</a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item card-hover rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="https://readdy.ai/api/search-image?query=brand%20identity%20design%20for%20coffee%20shop%2C%20showing%20logo%2C%20color%20palette%2C%20typography%2C%20packaging%20design%2C%20and%20brand%20applications%20on%20various%20materials%2C%20professional%20branding%20presentation%20mockup&width=600&height=450&seq=4&orientation=landscape" 
+                         alt="Coffee Shop Branding" 
+                         class="w-full h-64 object-cover object-top">
+                    <div class="portfolio-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transition-opacity duration-300">
+                        <h3 class="text-xl font-semibold text-white mb-2">Brew & Co.</h3>
+                        <p class="text-white text-center mb-4">Complete brand identity for an artisanal coffee chain</p>
+                        <a href="portfolio.html" class="bg-white text-primary px-4 py-2 !rounded-button hover:bg-gray-100 transition-colors duration-300 whitespace-nowrap">View Project</a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item card-hover rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="https://readdy.ai/api/search-image?query=financial%20dashboard%20UI%20design%20with%20data%20visualization%2C%20charts%2C%20graphs%20for%20investment%20platform%2C%20showing%20portfolio%20performance%2C%20market%20trends%2C%20clean%20professional%20interface%20with%20dark%20mode%2C%20UI%20design%20mockup%20on%20screen&width=600&height=450&seq=5&orientation=landscape" 
+                         alt="Financial Dashboard" 
+                         class="w-full h-64 object-cover object-top">
+                    <div class="portfolio-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transition-opacity duration-300">
+                        <h3 class="text-xl font-semibold text-white mb-2">InvestPro Dashboard</h3>
+                        <p class="text-white text-center mb-4">Financial analytics platform with real-time data visualization</p>
+                        <a href="portfolio.html" class="bg-white text-primary px-4 py-2 !rounded-button hover:bg-gray-100 transition-colors duration-300 whitespace-nowrap">View Project</a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-item card-hover rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="https://readdy.ai/api/search-image?query=restaurant%20website%20design%20showing%20elegant%20layout%20with%20food%20photography%2C%20menu%20display%2C%20reservation%20system%2C%20chef%20profiles%2C%20modern%20responsive%20web%20design%20for%20high-end%20dining%20establishment%2C%20UI%20design%20mockup%20on%20screen&width=600&height=450&seq=6&orientation=landscape" 
+                         alt="Restaurant Website" 
+                         class="w-full h-64 object-cover object-top">
+                    <div class="portfolio-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transition-opacity duration-300">
+                        <h3 class="text-xl font-semibold text-white mb-2">Saveur Restaurant</h3>
+                        <p class="text-white text-center mb-4">Website redesign with integrated reservation system</p>
+                        <a href="portfolio.html" class="bg-white text-primary px-4 py-2 !rounded-button hover:bg-gray-100 transition-colors duration-300 whitespace-nowrap">View Project</a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-item card-hover rounded-lg overflow-hidden shadow-lg relative">
+                    <img src="https://readdy.ai/api/search-image?query=travel%20app%20UI%20design%20showing%20destination%20discovery%2C%20trip%20planning%20features%2C%20booking%20interface%2C%20user%20reviews%2C%20modern%20mobile%20application%20with%20immersive%20travel%20photography%2C%20UI%20design%20mockup%20on%20smartphone&width=600&height=450&seq=7&orientation=landscape" 
+                         alt="Travel App" 
+                         class="w-full h-64 object-cover object-top">
+                    <div class="portfolio-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transition-opacity duration-300">
+                        <h3 class="text-xl font-semibold text-white mb-2">Wanderlust</h3>
+                        <p class="text-white text-center mb-4">Travel planning app with personalized recommendations</p>
+                        <a href="portfolio.html" class="bg-white text-primary px-4 py-2 !rounded-button hover:bg-gray-100 transition-colors duration-300 whitespace-nowrap">View Project</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="portfolio.html" class="inline-block bg-primary text-white px-8 py-3 !rounded-button hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap">
+                    View All Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold mb-2">Client Testimonials</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray-700">
+                    What my clients say about working with me and the results we've achieved together.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">
+                        "Mahmud transformed our outdated website into a stunning, user-friendly platform that perfectly represents our brand. The increase in engagement and conversions has been remarkable."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
+                            <i class="ri-user-3-line text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Newton Ihugu</h4>
+                            <p class="text-sm text-gray-600">CEO, newton crafter</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">
+                        "Working with Mahmud was a game-changer for our startup. His intuitive design approach and technical expertise helped us launch a product that our users love and investors are impressed by."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
+                            <i class="ri-user-3-line text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Alyvin Muchiri</h4>
+                            <p class="text-sm text-gray-600">Marketing Director, Luxe Fashion</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-lg shadow-lg p-8 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">
+                        "Mahmud's brand identity work for our coffee chain helped us stand out in a crowded market. His attention to detail and understanding of our vision exceeded our expectations."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
+                            <i class="ri-user-3-line text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Michelle Rodriguez</h4>
+                            <p class="text-sm text-gray-600">Founder, Brew & Co.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-primary relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-white"></div>
+            <div class="absolute bottom-10 right-10 w-60 h-60 rounded-full bg-white"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-white"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-xl p-8 md:p-12">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold mb-2">Let's Work Together</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                    <p class="text-gray-700">
+                        Ready to elevate your digital presence? Get in touch to discuss your project.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4 mt-1">
+                                    <i class="ri-mail-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Email</h4>
+                                    <p class="text-gray-600">mdesign.letstalk@gmail.com</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4 mt-1">
+                                    <i class="ri-phone-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Phone</h4>
+                                    <p class="text-gray-600">+254 113 832 100</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4 mt-1">
+                                    <i class="ri-map-pin-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Location</h4>
+                                    <p class="text-gray-600">Nairobi, Kenya</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold mb-4">Connect</h3>
+                            <div class="flex space-x-4">
+                                <a href="https://www.instagram.com/mahmud_designs/?hl=en" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors duration-300">
+    				    <i class="ri-instagram-line ri-lg"></i>
+				</a>
+                                <a href="https://wa.me/254113832100?text=Hello" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors duration-300">
+    				    <i class="ri-whatsapp-line ri-lg"></i>
+				</a>
+                                <a href="https://www.linkedin.com/in/mahmud-salim-1b3169288/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors duration-300">
+    				    <i class="ri-linkedin-line ri-lg"></i>
+				</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Send a Message</h3>
+                         <form id="contactForm" action="https://hooks.zapier.com/hooks/catch/23401690/uodjl0y/" method="POST">
+    <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Your name" required>
+    </div>
+
+    <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Your email" required>
+    </div>
+
+    <div class="mb-4">
+        <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+        <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Subject">
+    </div>
+
+    <div class="mb-6">
+        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+        <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Your message"></textarea>
+    </div>
+
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_redirect" value="javascript:void(0)">
+
+    <button type="submit" class="w-full bg-primary text-white px-6 py-3 !rounded-button hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap pulse">
+        Send Message
+    </button>
+
+    <!-- Feedback messages -->
+    <p id="formSuccess" class="text-green-600 mt-4 hidden">✅ Message sent successfully!</p>
+    <p id="formError" class="text-red-600 mt-4 hidden">❌ Something went wrong. Please try again.</p>
+</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="index.html" class="inline-block mb-4 flex items-center">
+  			<img src="Images/MD_Logo-removebg-Pink.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" />
+			</a>
+                    <p class="text-gray-400 mb-6">Creating exceptional digital experiences that elevate brands and engage audiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/mahmud_designs/?hl=en" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-instagram-line ri-lg"></i>
+			</a>
+                        <a href="https://wa.me/254113832100?text=Hello" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-whatsapp-line ri-lg"></i>
+			</a>
+                        <a href="https://www.linkedin.com/in/mahmud-salim-1b3169288/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-linkedin-line ri-lg"></i>
+			</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Web%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Web Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Graphic%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Graphic Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20UI/UX%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">UI/UX Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Branding" class="text-gray-400 hover:text-primary transition-colors duration-300">Branding</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Motion%20Graphics" class="text-gray-400 hover:text-primary transition-colors duration-300">Motion Graphics</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Mobile%20App%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Mobile App Design</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary transition-colors duration-300">About</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Portfolio</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Services</a></li>
+                        <li><a href="contacts.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-map-pin-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">Nairobi, Kenya</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-mail-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">mdesigns.letstalk@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-phone-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">+254 113 832 100</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Mahmud Designs. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="privacy-policy.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                    <a href="terms-of-services.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Terms of Service</a>
+                    <a href="cookie-policy.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="bg-white h-full w-64 max-w-full">
+            <div class="p-4 border-b flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="Images/MD_Logo-removebg-Black.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" />
+                <button id="close-menu" class="text-gray-800 hover:text-primary">
+                    <div class="w-8 h-8 flex items-center justify-center">
+                        <i class="ri-close-line ri-lg"></i>
+                    </div>
+                </button>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-4">
+                    <li><a href="about.html" class="block py-2 text-gray-800 hover:text-primary transition-colors duration-300">About</a></li>
+                    <li><a href="services.html" class="block py-2 text-gray-800 hover:text-primary transition-colors duration-300">Services</a></li>
+                    <li><a href="portfolio.html" class="block py-2 text-gray-800 hover:text-primary transition-colors duration-300">Portfolio</a></li>
+                    <li><a href="contact.html" class="block py-2 text-gray-800 hover:text-primary transition-colors duration-300">Contact</a></li>
+                    <li><a href="https://wa.me/254113832100" class="block py-2 bg-primary text-white px-4 !rounded-button hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap text-center mt-4">Hire Me</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script id="mobile-menu-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('.md\\:hidden button');
+            const closeMenuButton = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+            });
+            
+            closeMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+            
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+
+    <script id="smooth-scroll-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script id="service-card-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('hover');
+                });
+            });
+        });
+    </script>
+    <script>
+  const form = document.getElementById("contactForm");
+  const successMsg = document.getElementById("formSuccess");
+  const errorMsg = document.getElementById("formError");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent redirect
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData
+    }).then(response => {
+      if (response.ok) {
+        form.reset();
+        successMsg.classList.remove("hidden");
+        errorMsg.classList.add("hidden");
+
+        // Hide after 5 seconds
+        setTimeout(() => {
+          successMsg.classList.add("hidden");
+        }, 5000);
+      } else {
+        successMsg.classList.add("hidden");
+        errorMsg.classList.remove("hidden");
+      }
+    }).catch(() => {
+      successMsg.classList.add("hidden");
+      errorMsg.classList.remove("hidden");
+    });
+  });
+</script>
+<script id="cursor-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.getElementById('custom-cursor');
+            const cursorFollower = document.getElementById('custom-cursor-follower');
+            
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                setTimeout(function() {
+                    cursorFollower.style.left = e.clientX + 'px';
+                    cursorFollower.style.top = e.clientY + 'px';
+                }, 100);
+            });
+            
+            document.addEventListener('mousedown', function() {
+                cursor.style.width = '15px';
+                cursor.style.height = '15px';
+                cursorFollower.style.width = '30px';
+                cursorFollower.style.height = '30px';
+            });
+            
+            document.addEventListener('mouseup', function() {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursorFollower.style.width = '40px';
+                cursorFollower.style.height = '40px';
+            });
+            
+            const links = document.querySelectorAll('a, button');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    cursor.style.width = '30px';
+                    cursor.style.height = '30px';
+                    cursorFollower.style.width = '50px';
+                    cursorFollower.style.height = '50px';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    cursor.style.width = '20px';
+                    cursor.style.height = '20px';
+                    cursorFollower.style.width = '40px';
+                    cursorFollower.style.height = '40px';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

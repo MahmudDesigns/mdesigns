@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahmud Designs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" href="Images/MD%20Favicon%20(1).png">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config={
+            theme:{
+                extend:{
+                    colors:{
+                        primary:'#ff4da6',
+                        secondary:'#000000',
+                        white: '#ffffff'
+                    },
+                    borderRadius:{
+                        'none':'0px',
+                        'sm':'4px',
+                        DEFAULT:'8px',
+                        'md':'12px',
+                        'lg':'16px',
+                        'xl':'20px',
+                        '2xl':'24px',
+                        '3xl':'32px',
+                        'full':'9999px',
+                        'button':'8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end);
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .form-input {
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #ff4da6;
+            box-shadow: 0 0 0 3px rgba(255, 77, 166, 0.2);
+        }
+        
+        .form-label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: white;
+            padding: 0 4px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: 0;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            color: #ff4da6;
+        }
+        
+        .textarea-label {
+            top: 25px;
+        }
+        
+        .form-input:focus + .textarea-label,
+        .form-input:not(:placeholder-shown) + .textarea-label {
+            top: 0;
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 77, 166, 0.1);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-active .accordion-content {
+            max-height: 500px;
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 77, 166, 0.5);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+        
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: #ff4da6;
+            z-index: 9999;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            top: 10%;
+            left: 5%;
+            width: 300px;
+            height: 300px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background-color: #ff4da6;
+            animation: morph 15s linear infinite alternate;
+        }
+        
+        .shape-2 {
+            bottom: 10%;
+            right: 5%;
+            width: 250px;
+            height: 250px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            background-color: #ff4da6;
+            animation: morph 12s linear infinite alternate;
+        }
+        
+        @keyframes morph {
+            0% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+            25% {
+                border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+            }
+            50% {
+                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+            }
+            75% {
+                border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+            }
+            100% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+        }
+        
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .map-container:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-white text-secondary min-h-screen">
+    <div class="scroll-progress"></div>
+    <div class="custom-cursor hidden md:block"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                    <img src="Images/MD_Logo-removebg-Black.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-secondary hover:text-primary transition-colors">Home</a>
+                <a href="portfolio.html" class="text-secondary hover:text-primary transition-colors">Portfolio</a>
+                <a href="about.html" class="text-secondary hover:text-primary transition-colors">About</a>
+                <a href="contacts.html" class="text-primary font-medium">Contact</a>
+            </div>
+            
+            <button class="md:hidden w-10 h-10 flex items-center justify-center text-secondary hover:text-primary transition-colors !rounded-button">
+                <i class="ri-menu-line ri-lg"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu (Hidden by default) -->
+    <div class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="container mx-auto px-6 py-4 flex flex-col h-full">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="Images/MD_Logo-removebg-Black.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" </a>
+                <button class="w-10 h-10 flex items-center justify-center text-secondary hover:text-primary transition-colors !rounded-button">
+                    <i class="ri-close-line ri-lg"></i>
+                </button>
+            </div>
+            
+            <div class="flex flex-col space-y-6 mt-16 items-center">
+                <a href="index.html" class="text-xl text-secondary hover:text-primary transition-colors">Home</a>
+                <a href="portfolio.html" class="text-xl text-secondary hover:text-primary transition-colors">Portfolio</a>
+                <a href="about.html" class="text-xl text-secondary hover:text-primary transition-colors">About</a>
+                <a href="contacts.html" class="text-xl text-primary font-medium">Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="relative pt-32 pb-20 px-6 overflow-hidden">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        
+        <div class="container mx-auto text-center max-w-3xl reveal">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 typewriter inline-block">
+                <span class="text-primary">Let's Work</span> Together
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8">I'm excited to hear about your project. Let's create something amazing together that exceeds your expectations.</p>
+            <div class="flex justify-center">
+                <a href="https://wa.me/254113832100" class="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all transform hover:scale-105 whitespace-nowrap !rounded-button">
+                    Start a Project
+                </a>
+            </div>
+        </div>
+    </header>
+           <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-gray-50 py-20 reveal">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-white"></div>
+            <div class="absolute bottom-10 right-10 w-60 h-60 rounded-full bg-white"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-white"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-xl p-8 md:p-12">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold mb-2">Let's Work Together</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                    <p class="text-gray-700">
+                        Ready to elevate your digital presence? Get in touch to discuss your project.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4 mt-1">
+                                    <i class="ri-mail-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Email</h4>
+                                    <p class="text-gray-600">mdesign.letstalk@gmail.com</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4 mt-1">
+                                    <i class="ri-phone-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Phone</h4>
+                                    <p class="text-gray-600">+254 113 832 100</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4 mt-1">
+                                    <i class="ri-map-pin-line text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Location</h4>
+                                    <p class="text-gray-600">Nairobi, Kenya</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold mb-4">Connect</h3>
+                            <div class="flex space-x-4">
+                                <a href="https://www.instagram.com/mahmud_designs/?hl=en" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors duration-300">
+    				    <i class="ri-instagram-line ri-lg"></i>
+				</a>
+                                <a href="https://wa.me/254113832100?text=Hello" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors duration-300">
+    				    <i class="ri-whatsapp-line ri-lg"></i>
+				</a>
+                                <a href="https://www.linkedin.com/in/mahmud-salim-1b3169288/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors duration-300">
+    				    <i class="ri-linkedin-line ri-lg"></i>
+				</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Send a Message</h3>
+                         <form id="contactForm" action="https://hooks.zapier.com/hooks/catch/23401690/uodjl0y/" method="POST">
+    <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Your name" required>
+    </div>
+
+    <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Your email" required>
+    </div>
+
+    <div class="mb-4">
+        <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+        <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Subject">
+    </div>
+
+    <div class="mb-6">
+        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+        <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Your message"></textarea>
+    </div>
+
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_redirect" value="javascript:void(0)">
+
+    <button type="submit" class="w-full bg-primary text-white px-6 py-3 !rounded-button hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap pulse">
+        Send Message
+    </button>
+
+    <!-- Feedback messages -->
+    <p id="formSuccess" class="text-green-600 mt-4 hidden">✅ Message sent successfully!</p>
+    <p id="formError" class="text-red-600 mt-4 hidden">❌ Something went wrong. Please try again.</p>
+</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+        <!-- Map Section -->
+        <div class="mb-20 reveal">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Find Me Here</h2>
+            
+            <div class="map-container rounded-lg overflow-hidden shadow-xl h-[400px] bg-gray-100">
+                <div class="w-full h-full" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png'); background-position: center; background-size: cover;">
+                    <div class="w-full h-full flex items-center justify-center">
+                        <div class="w-16 h-16 flex items-center justify-center">
+                            <div class="w-8 h-8 bg-primary rounded-full animate-pulse flex items-center justify-center">
+                                <i class="ri-map-pin-fill text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="max-w-3xl mx-auto mb-20 reveal">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+            
+            <div class="space-y-4">
+                <div class="accordion border border-gray-200 rounded">
+                    <button class="accordion-header flex justify-between items-center w-full p-4 text-left font-medium hover:bg-gray-50 transition-colors !rounded-button">
+                        <span>What is your typical project timeline?</span>
+                        <i class="accordion-icon ri-arrow-down-s-line"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p class="text-gray-600">Project timelines vary depending on complexity and scope. A typical website design project takes 4-6 weeks from concept to launch. Branding projects usually take 3-4 weeks, while custom illustrations might take 1-2 weeks. I'll provide a detailed timeline during our initial consultation.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion border border-gray-200 rounded">
+                    <button class="accordion-header flex justify-between items-center w-full p-4 text-left font-medium hover:bg-gray-50 transition-colors !rounded-button">
+                        <span>What is your payment process?</span>
+                        <i class="accordion-icon ri-arrow-down-s-line"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p class="text-gray-600">I typically require a 50% deposit to begin work, with the remaining balance due upon project completion. For larger projects, we can arrange milestone payments. I accept credit cards, PayPal, and bank transfers. All payment details will be outlined in our contract.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion border border-gray-200 rounded">
+                    <button class="accordion-header flex justify-between items-center w-full p-4 text-left font-medium hover:bg-gray-50 transition-colors !rounded-button">
+                        <span>Do you work with clients internationally?</span>
+                        <i class="accordion-icon ri-arrow-down-s-line"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p class="text-gray-600">Yes, I work with clients worldwide! I'm comfortable collaborating remotely using tools like Zoom, Slack, and email. I'm flexible with scheduling meetings across different time zones to ensure smooth communication throughout our project.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion border border-gray-200 rounded">
+                    <button class="accordion-header flex justify-between items-center w-full p-4 text-left font-medium hover:bg-gray-50 transition-colors !rounded-button">
+                        <span>What information do you need to start a project?</span>
+                        <i class="accordion-icon ri-arrow-down-s-line"></i>
+                    </button>
+                    <div class="accordion-content px-4 pb-4">
+                        <p class="text-gray-600">To get started, I'll need your project goals, target audience, brand guidelines (if available), content requirements, and any design preferences. I'll provide a detailed questionnaire to help gather this information efficiently. The more details you can provide, the better I can tailor the design to your needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- CTA Section -->
+    <section class="bg-gray-50 py-20 reveal">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Bring Your Ideas to Life?</h2>
+            <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Available for freelance, remote, and collaborative projects. Let's create something extraordinary together.</p>
+            <div class="flex justify-center">
+                <a href="portfolio.html" class="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all transform hover:scale-105 whitespace-nowrap !rounded-button">
+                    View My Portfolio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="index.html" class="inline-block mb-4 flex items-center">
+  			<img src="Images/MD_Logo-removebg-Pink.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" />
+			</a>
+                    <p class="text-gray-400 mb-6">Creating exceptional digital experiences that elevate brands and engage audiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/mahmud_designs/?hl=en" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-instagram-line ri-lg"></i>
+			</a>
+                        <a href="https://wa.me/254113832100?text=Hello" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-whatsapp-line ri-lg"></i>
+			</a>
+                        <a href="https://www.linkedin.com/in/mahmud-salim-1b3169288/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-linkedin-line ri-lg"></i>
+			</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Web%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Web Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Graphic%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Graphic Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20UI/UX%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">UI/UX Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Branding" class="text-gray-400 hover:text-primary transition-colors duration-300">Branding</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Motion%20Graphics" class="text-gray-400 hover:text-primary transition-colors duration-300">Motion Graphics</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Mobile%20App%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Mobile App Design</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary transition-colors duration-300">About</a></li>
+                        <li><a href="Portfolio.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Portfolio</a></li>
+                        <li><a href="Services.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Services</a></li>
+                        <li><a href="Contacts.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-map-pin-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">Nairobi, Kenya</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-mail-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">mdesigns.letstalk@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-phone-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">+254 113 832 100</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Mahmud Designs. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="privacy-policy.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                    <a href="terms-of-services.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Terms of Service</a>
+                    <a href="cookie-policy.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full shadow-lg !rounded-button">
+        <i class="ri-arrow-up-line ri-lg"></i>
+    </button>
+
+    <script id="cursor-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.querySelector('.custom-cursor');
+            
+            if (cursor) {
+                document.addEventListener('mousemove', function(e) {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+                
+                document.addEventListener('mousedown', function() {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                    cursor.style.backgroundColor = 'rgba(255, 77, 166, 0.8)';
+                });
+                
+                document.addEventListener('mouseup', function() {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursor.style.backgroundColor = 'rgba(255, 77, 166, 0.5)';
+                });
+                
+                document.querySelectorAll('a, button, input, textarea, select').forEach(function(el) {
+                    el.addEventListener('mouseenter', function() {
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                        cursor.style.backgroundColor = 'rgba(255, 77, 166, 0.3)';
+                    });
+                    
+                    el.addEventListener('mouseleave', function() {
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                        cursor.style.backgroundColor = 'rgba(255, 77, 166, 0.5)';
+                    });
+                });
+            }
+        });
+    </script>
+
+    <script id="scroll-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const backToTop = document.querySelector('.back-to-top');
+            const reveals = document.querySelectorAll('.reveal');
+            
+            function updateScrollProgress() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrollTop = window.scrollY;
+                const progress = (scrollTop / documentHeight) * 100;
+                
+                scrollProgress.style.width = progress + '%';
+                
+                if (scrollTop > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+                
+                reveals.forEach(function(reveal) {
+                    const revealTop = reveal.getBoundingClientRect().top;
+                    
+                    if (revealTop < windowHeight - 100) {
+                        reveal.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateScrollProgress);
+            updateScrollProgress();
+            
+            if (backToTop) {
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+    <script id="accordion-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordions = document.querySelectorAll('.accordion');
+            
+            accordions.forEach(function(accordion) {
+                const header = accordion.querySelector('.accordion-header');
+                
+                if (header) {
+                    header.addEventListener('click', function() {
+                        accordion.classList.toggle('accordion-active');
+                    });
+                }
+            });
+        });
+    </script>
+    <script id="mobile-menu-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('nav button');
+            const closeButton = document.querySelector('.fixed.inset-0 button');
+            const mobileMenu = document.querySelector('.fixed.inset-0');
+            
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', function() {
+                    mobileMenu.classList.remove('translate-x-full');
+                });
+            }
+            
+            if (closeButton && mobileMenu) {
+                closeButton.addEventListener('click', function() {
+                    mobileMenu.classList.add('translate-x-full');
+                });
+            }
+        });
+    </script>
+    <script>
+  const form = document.getElementById("contactForm");
+  const successMsg = document.getElementById("formSuccess");
+  const errorMsg = document.getElementById("formError");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent redirect
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData
+    }).then(response => {
+      if (response.ok) {
+        form.reset();
+        successMsg.classList.remove("hidden");
+        errorMsg.classList.add("hidden");
+
+        // Hide after 5 seconds
+        setTimeout(() => {
+          successMsg.classList.add("hidden");
+        }, 5000);
+      } else {
+        successMsg.classList.add("hidden");
+        errorMsg.classList.remove("hidden");
+      }
+    }).catch(() => {
+      successMsg.classList.add("hidden");
+      errorMsg.classList.remove("hidden");
+    });
+  });
+</script>
+</body>
+</html>

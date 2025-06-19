@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahmud Designs</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#ff4da6',secondary:'#000000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/png" href="Images/MD%20Favicon%20(1).png">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Montserrat', sans-serif;
+cursor: none;
+}
+.custom-cursor {
+width: 20px;
+height: 20px;
+border-radius: 50%;
+background-color: rgba(255, 77, 166, 0.5);
+position: fixed;
+pointer-events: none;
+z-index: 9999;
+transform: translate(-50%, -50%);
+transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+.custom-cursor.hover {
+width: 40px;
+height: 40px;
+background-color: rgba(255, 77, 166, 0.3);
+}
+.progress-bar {
+height: 3px;
+background-color: #ff4da6;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 1000;
+width: 0%;
+transition: width 0.1s;
+}
+.nav-blur {
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+}
+.project-card {
+transition: transform 0.3s, box-shadow 0.3s;
+}
+.project-card:hover {
+transform: scale(1.02);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+.project-overlay {
+opacity: 0;
+transition: opacity 0.3s;
+}
+.project-card:hover .project-overlay {
+opacity: 1;
+}
+.floating {
+animation: floating 3s ease-in-out infinite;
+}
+@keyframes floating {
+0% { transform: translateY(0px); }
+50% { transform: translateY(-15px); }
+100% { transform: translateY(0px); }
+}
+.tool-icon {
+filter: grayscale(100%);
+transition: filter 0.3s, transform 0.3s;
+}
+.tool-icon:hover {
+filter: grayscale(0%);
+transform: translateY(-5px);
+}
+.slide-in {
+opacity: 0;
+transform: translateY(30px);
+transition: opacity 0.8s, transform 0.8s;
+}
+.slide-in.active {
+opacity: 1;
+transform: translateY(0);
+}
+.carousel-container {
+perspective: 1000px;
+}
+.carousel-slide {
+transition: transform 0.5s, opacity 0.5s;
+transform-style: preserve-3d;
+}
+.carousel-slide.active {
+opacity: 1;
+transform: translateX(0) rotateY(0);
+z-index: 2;
+}
+.carousel-slide.prev {
+opacity: 0.7;
+transform: translateX(-100px) rotateY(10deg);
+z-index: 1;
+}
+.carousel-slide.next {
+opacity: 0.7;
+transform: translateX(100px) rotateY(-10deg);
+z-index: 1;
+}
+.glow-button {
+position: relative;
+overflow: hidden;
+}
+.glow-button:hover::before {
+content: '';
+position: absolute;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+0% { transform: scale(0.95); opacity: 0.7; }
+50% { transform: scale(1); opacity: 1; }
+100% { transform: scale(0.95); opacity: 0.7; }
+}
+.ripple {
+position: absolute;
+border-radius: 50%;
+background-color: rgba(255, 255, 255, 0.4);
+transform: scale(0);
+animation: ripple 0.6s linear;
+}
+@keyframes ripple {
+to {
+transform: scale(4);
+opacity: 0;
+}
+}
+.lightbox {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.9);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s;
+}
+.lightbox.active {
+opacity: 1;
+pointer-events: auto;
+}
+.lightbox-content {
+max-width: 80%;
+max-height: 80%;
+transform: scale(0.9);
+transition: transform 0.3s;
+}
+.lightbox.active .lightbox-content {
+transform: scale(1);
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.floating-shape {
+position: absolute;
+opacity: 0.4;
+animation-name: float-around;
+animation-duration: 15s;
+animation-timing-function: ease-in-out;
+animation-iteration-count: infinite;
+}
+@keyframes float-around {
+0% { transform: translate(0, 0) rotate(0deg); }
+25% { transform: translate(50px, 25px) rotate(90deg); }
+50% { transform: translate(25px, 50px) rotate(180deg); }
+75% { transform: translate(-25px, 25px) rotate(270deg); }
+100% { transform: translate(0, 0) rotate(360deg); }
+}
+</style>
+</head>
+<body class="bg-white">
+<div class="custom-cursor"></div>
+<div class="progress-bar"></div>
+<header class="relative min-h-screen flex items-center overflow-hidden bg-secondary">
+<div class="floating-shape w-32 h-32 top-20 left-[10%] bg-primary rounded-full" style="animation-delay: 0s;"></div>
+<div class="floating-shape w-20 h-20 top-40 right-[15%] bg-white rounded-full" style="animation-delay: 2s;"></div>
+<div class="floating-shape w-24 h-24 bottom-32 left-[20%] bg-primary rounded-full" style="animation-delay: 4s;"></div>
+<div class="floating-shape w-16 h-16 bottom-40 right-[25%] bg-white rounded-full" style="animation-delay: 6s;"></div>
+<div class="container mx-auto px-6 z-10 slide-in active">
+<div class="max-w-3xl">
+<h1 class="text-6xl md:text-7xl font-bold text-white mb-6">My Creative <span class="text-primary">Work</span></h1>
+<p class="text-xl text-white/80 mb-10">I transform ideas into captivating digital experiences. Explore my portfolio of innovative designs that combine aesthetics with functionality.</p>
+<div class="flex gap-4">
+<a href="#projects" class="bg-primary text-white px-8 py-3 font-semibold !rounded-button glow-button whitespace-nowrap">View Projects</a>
+<a href="https://wa.me/254113832100" class="bg-transparent border-2 border-white text-white px-8 py-3 font-semibold !rounded-button hover:bg-white/10 whitespace-nowrap">Contact Me</a>
+</div>
+</div>
+</div>
+</header>
+<nav class="sticky top-0 z-50 bg-white/80 nav-blur border-b border-gray-100">
+<div class="container mx-auto px-6">
+<div class="flex justify-between items-center h-16">
+<a href="index.html" class="flex items-center">
+<img src="Images/MD_Logo-removebg-Black.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" /</a>
+<div class="hidden md:flex items-center space-x-8">
+<a href="index.html" class="text-secondary font-medium hover:text-primary transition-colors">Home</a>
+<a href="#projects" class="text-secondary font-medium hover:text-primary transition-colors">Portfolio</a>
+<a href="about.html" class="text-secondary font-medium hover:text-primary transition-colors">About</a>
+<a href="#testimonials" class="text-secondary font-medium hover:text-primary transition-colors">Testimonials</a>
+<a href="contact.html" class="text-secondary font-medium hover:text-primary transition-colors">Contact</a>
+</div>
+<button class="md:hidden w-10 h-10 flex items-center justify-center">
+<i class="ri-menu-line text-secondary text-2xl"></i>
+</button>
+</div>
+</div>
+</nav>
+<section id="projects" class="py-20">
+<div class="container mx-auto px-6">
+<h2 class="text-4xl font-bold text-secondary text-center mb-16 slide-in">Featured Projects</h2>
+<div class="flex justify-center mb-12 slide-in">
+<div class="inline-flex bg-gray-100 p-1 !rounded-full">
+<button class="px-6 py-2 !rounded-full bg-primary text-white font-medium whitespace-nowrap">All</button>
+<button class="px-6 py-2 !rounded-full text-secondary font-medium hover:bg-gray-200 whitespace-nowrap">Web Design</button>
+<button class="px-6 py-2 !rounded-full text-secondary font-medium hover:bg-gray-200 whitespace-nowrap">Branding</button>
+<button class="px-6 py-2 !rounded-full text-secondary font-medium hover:bg-gray-200 whitespace-nowrap">UI/UX</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="project-card !rounded-lg overflow-hidden bg-white shadow-md slide-in">
+<div class="relative h-64">
+<img src="Images\Luxury Fashion Website.jpg" alt="Fashion E-commerce Website" class="w-full h-full object-cover object-top">
+<div class="project-overlay absolute inset-0 bg-secondary/80 flex flex-col justify-center items-center p-6">
+<h4 class="text-white text-xl font-semibold mb-2">Luxury Fashion Website</h4>
+<p class="text-white/80 text-center mb-4">A premium e-commerce experience for high-end fashion</p>
+<button class="bg-primary text-white px-6 py-2 font-medium !rounded-button whitespace-nowrap">View Project</button>
+</div>
+</div>
+<div class="p-6">
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">Web Design</span>
+<h3 class="text-xl font-bold text-secondary mt-2">Luxury Fashion Website</h3>
+<p class="text-gray-600 mt-2">A premium e-commerce experience for high-end fashion</p>
+</div>
+</div>
+<div class="project-card !rounded-lg overflow-hidden bg-white shadow-md slide-in">
+<div class="relative h-64">
+<img src="https://readdy.ai/api/search-image?query=modern%20mobile%20app%20interface%20design%20for%20a%20fitness%20tracking%20application%2C%20clean%20UI%20with%20activity%20stats%2C%20workout%20plans%2C%20progress%20charts%2C%20user-friendly%20navigation%2C%20vibrant%20health-focused%20design%20elements%2C%20professional%20mobile%20interface&width=600&height=400&seq=2&orientation=landscape" alt="Fitness App UI" class="w-full h-full object-cover object-top">
+<div class="project-overlay absolute inset-0 bg-secondary/80 flex flex-col justify-center items-center p-6">
+<h4 class="text-white text-xl font-semibold mb-2">FitTrack Mobile App</h4>
+<p class="text-white/80 text-center mb-4">Comprehensive fitness tracking with intuitive UI</p>
+<button class="bg-primary text-white px-6 py-2 font-medium !rounded-button whitespace-nowrap">View Project</button>
+</div>
+</div>
+<div class="p-6">
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">UI/UX</span>
+<h3 class="text-xl font-bold text-secondary mt-2">FitTrack Mobile App</h3>
+<p class="text-gray-600 mt-2">Comprehensive fitness tracking with intuitive UI</p>
+</div>
+</div>
+<div class="project-card !rounded-lg overflow-hidden bg-white shadow-md slide-in">
+<div class="relative h-64">
+<img src="https://readdy.ai/api/search-image?query=professional%20brand%20identity%20design%20for%20an%20organic%20coffee%20company%2C%20logo%20design%2C%20packaging%20mockups%2C%20business%20cards%2C%20color%20palette%2C%20typography%20system%2C%20brand%20guidelines%20document%2C%20cohesive%20visual%20identity%20system&width=600&height=400&seq=3&orientation=landscape" alt="Coffee Brand Identity" class="w-full h-full object-cover object-top">
+<div class="project-overlay absolute inset-0 bg-secondary/80 flex flex-col justify-center items-center p-6">
+<h4 class="text-white text-xl font-semibold mb-2">Organic Coffee Branding</h4>
+<p class="text-white/80 text-center mb-4">Complete brand identity for an artisanal coffee company</p>
+<button class="bg-primary text-white px-6 py-2 font-medium !rounded-button whitespace-nowrap">View Project</button>
+</div>
+</div>
+<div class="p-6">
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">Branding</span>
+<h3 class="text-xl font-bold text-secondary mt-2">Organic Coffee Branding</h3>
+<p class="text-gray-600 mt-2">Complete brand identity for an artisanal coffee company</p>
+</div>
+</div>
+<div class="project-card !rounded-lg overflow-hidden bg-white shadow-md slide-in">
+<div class="relative h-64">
+<img src="https://readdy.ai/api/search-image?query=modern%20dashboard%20interface%20design%20for%20a%20financial%20analytics%20platform%2C%20data%20visualization%20with%20charts%20and%20graphs%2C%20user-friendly%20controls%2C%20clean%20layout%20with%20financial%20metrics%2C%20professional%20business%20intelligence%20UI%2C%20sophisticated%20data%20presentation&width=600&height=400&seq=4&orientation=landscape" alt="Financial Dashboard" class="w-full h-full object-cover object-top">
+<div class="project-overlay absolute inset-0 bg-secondary/80 flex flex-col justify-center items-center p-6">
+<h4 class="text-white text-xl font-semibold mb-2">Financial Analytics Dashboard</h4>
+<p class="text-white/80 text-center mb-4">Intuitive data visualization for complex financial metrics</p>
+<button class="bg-primary text-white px-6 py-2 font-medium !rounded-button whitespace-nowrap">View Project</button>
+</div>
+</div>
+<div class="p-6">
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">UI/UX</span>
+<h3 class="text-xl font-bold text-secondary mt-2">Financial Analytics Dashboard</h3>
+<p class="text-gray-600 mt-2">Intuitive data visualization for complex financial metrics</p>
+</div>
+</div>
+<div class="project-card !rounded-lg overflow-hidden bg-white shadow-md slide-in">
+<div class="relative h-64">
+<img src="https://readdy.ai/api/search-image?query=modern%20responsive%20website%20design%20for%20a%20travel%20blog%2C%20immersive%20photography%2C%20clean%20typography%2C%20destination%20guides%20layout%2C%20interactive%20maps%2C%20user-friendly%20navigation%2C%20engaging%20travel%20content%20presentation&width=600&height=400&seq=5&orientation=landscape" alt="Travel Blog Website" class="w-full h-full object-cover object-top">
+<div class="project-overlay absolute inset-0 bg-secondary/80 flex flex-col justify-center items-center p-6">
+<h4 class="text-white text-xl font-semibold mb-2">Wanderlust Travel Blog</h4>
+<p class="text-white/80 text-center mb-4">Immersive content platform for travel enthusiasts</p>
+<button class="bg-primary text-white px-6 py-2 font-medium !rounded-button whitespace-nowrap">View Project</button>
+</div>
+</div>
+<div class="p-6">
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">Web Design</span>
+<h3 class="text-xl font-bold text-secondary mt-2">Wanderlust Travel Blog</h3>
+<p class="text-gray-600 mt-2">Immersive content platform for travel enthusiasts</p>
+</div>
+</div>
+<div class="project-card !rounded-lg overflow-hidden bg-white shadow-md slide-in">
+<div class="relative h-64">
+<img src="https://readdy.ai/api/search-image?query=complete%20brand%20identity%20design%20for%20a%20tech%20startup%2C%20modern%20logo%20variations%2C%20business%20cards%2C%20letterhead%2C%20digital%20assets%2C%20app%20icons%2C%20color%20palette%2C%20typography%20system%2C%20cohesive%20visual%20identity%20guidelines&width=600&height=400&seq=6&orientation=landscape" alt="Tech Startup Branding" class="w-full h-full object-cover object-top">
+<div class="project-overlay absolute inset-0 bg-secondary/80 flex flex-col justify-center items-center p-6">
+<h4 class="text-white text-xl font-semibold mb-2">Nexus Tech Branding</h4>
+<p class="text-white/80 text-center mb-4">Comprehensive identity system for an innovative startup</p>
+<button class="bg-primary text-white px-6 py-2 font-medium !rounded-button whitespace-nowrap">View Project</button>
+</div>
+</div>
+<div class="p-6">
+<span class="text-xs font-semibold text-primary uppercase tracking-wider">Branding</span>
+<h3 class="text-xl font-bold text-secondary mt-2">Nexus Tech Branding</h3>
+<p class="text-gray-600 mt-2">Comprehensive identity system for an innovative startup</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-gray-50">
+<div class="container mx-auto px-6">
+<h2 class="text-4xl font-bold text-secondary text-center mb-16 slide-in">Featured Work</h2>
+<div class="carousel-container relative slide-in">
+<div class="overflow-hidden">
+<div class="flex transition-transform duration-500">
+<div class="carousel-slide min-w-full active">
+<div class="bg-white !rounded-lg shadow-lg overflow-hidden">
+<div class="md:flex">
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=professional%20mockup%20of%20a%20responsive%20website%20design%20for%20a%20luxury%20hotel%20chain%2C%20showing%20desktop%2C%20tablet%2C%20and%20mobile%20versions%2C%20elegant%20interface%20with%20high-end%20photography%2C%20sophisticated%20layout%20with%20attention%20to%20detail%2C%20premium%20digital%20experience&width=800&height=600&seq=7&orientation=landscape" alt="Luxury Hotel Website" class="w-full h-full object-cover object-top">
+</div>
+<div class="md:w-1/2 p-8 flex flex-col justify-center">
+<span class="text-sm font-semibold text-primary uppercase tracking-wider">Featured Project</span>
+<h3 class="text-2xl font-bold text-secondary mt-2">Elegance Hotels Rebrand</h3>
+<p class="text-gray-600 mt-4">A complete digital transformation for a luxury hotel chain, featuring immersive experiences, seamless booking systems, and personalized user journeys that increased conversion rates by 40%.</p>
+<div class="flex gap-2 mt-6">
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">Web Design</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">UX Strategy</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">Branding</span>
+</div>
+<button class="mt-8 bg-primary text-white px-6 py-2 font-medium !rounded-button self-start whitespace-nowrap">View Case Study</button>
+</div>
+</div>
+</div>
+</div>
+<div class="carousel-slide min-w-full next">
+<div class="bg-white !rounded-lg shadow-lg overflow-hidden">
+<div class="md:flex">
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=professional%20mockup%20of%20a%20mobile%20app%20design%20for%20a%20sustainable%20living%20platform%2C%20showing%20multiple%20screens%20with%20eco-friendly%20tips%2C%20carbon%20footprint%20calculator%2C%20and%20community%20features%2C%20modern%20interface%20with%20nature-inspired%20elements%2C%20user-friendly%20green%20technology%20application&width=800&height=600&seq=8&orientation=landscape" alt="Eco App Design" class="w-full h-full object-cover object-top">
+</div>
+<div class="md:w-1/2 p-8 flex flex-col justify-center">
+<span class="text-sm font-semibold text-primary uppercase tracking-wider">Featured Project</span>
+<h3 class="text-2xl font-bold text-secondary mt-2">EcoLife Mobile App</h3>
+<p class="text-gray-600 mt-4">An innovative mobile application helping users reduce their environmental impact through personalized recommendations, community challenges, and real-time carbon footprint tracking.</p>
+<div class="flex gap-2 mt-6">
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">UI Design</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">UX Research</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">Mobile App</span>
+</div>
+<button class="mt-8 bg-primary text-white px-6 py-2 font-medium !rounded-button self-start whitespace-nowrap">View Case Study</button>
+</div>
+</div>
+</div>
+</div>
+<div class="carousel-slide min-w-full next">
+<div class="bg-white !rounded-lg shadow-lg overflow-hidden">
+<div class="md:flex">
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=professional%20brand%20identity%20design%20for%20a%20modern%20art%20gallery%2C%20showing%20logo%20variations%2C%20exhibition%20materials%2C%20digital%20presence%2C%20signage%2C%20and%20promotional%20items%2C%20sophisticated%20visual%20system%20with%20artistic%20elements%2C%20cohesive%20cultural%20institution%20branding&width=800&height=600&seq=9&orientation=landscape" alt="Art Gallery Branding" class="w-full h-full object-cover object-top">
+</div>
+<div class="md:w-1/2 p-8 flex flex-col justify-center">
+<span class="text-sm font-semibold text-primary uppercase tracking-wider">Featured Project</span>
+<h3 class="text-2xl font-bold text-secondary mt-2">Prisma Gallery Rebrand</h3>
+<p class="text-gray-600 mt-4">A comprehensive brand identity system for a contemporary art gallery, including visual language, exhibition materials, digital presence, and environmental graphics that increased visitor engagement by 65%.</p>
+<div class="flex gap-2 mt-6">
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">Branding</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">Print Design</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium !rounded-full">Environmental</span>
+</div>
+<button class="mt-8 bg-primary text-white px-6 py-2 font-medium !rounded-button self-start whitespace-nowrap">View Case Study</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="absolute top-1/2 left-4 transform -translate-y-1/2 w-10 h-10 bg-white/80 !rounded-full flex items-center justify-center shadow-md z-10 carousel-prev">
+<i class="ri-arrow-left-s-line text-secondary text-xl"></i>
+</button>
+<button class="absolute top-1/2 right-4 transform -translate-y-1/2 w-10 h-10 bg-white/80 !rounded-full flex items-center justify-center shadow-md z-10 carousel-next">
+<i class="ri-arrow-right-s-line text-secondary text-xl"></i>
+</button>
+<div class="flex justify-center mt-8">
+<div class="flex gap-2">
+<button class="w-3 h-3 !rounded-full bg-primary carousel-dot active" data-index="0"></button>
+<button class="w-3 h-3 !rounded-full bg-gray-300 carousel-dot" data-index="1"></button>
+<button class="w-3 h-3 !rounded-full bg-gray-300 carousel-dot" data-index="2"></button>
+</div>
+</div>
+</div>
+</div>
+	</section>
+	<section class="py-20">
+		<div class="container mx-auto px-6">
+<h2 class="text-4xl font-bold text-secondary text-center mb-16 slide-in">Tools & Technologies</h2>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 slide-in">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 !rounded-full mb-4 tool-icon group relative">
+<i class="ri-figma-fill text-2xl text-gray-700"></i>
+<div class="absolute bottom-full mb-2 bg-secondary text-white text-xs py-1 px-3 !rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Figma</div>
+</div>
+<span class="text-sm text-gray-600">Figma</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 !rounded-full mb-4 tool-icon group relative">
+<i class="ri-adobe-photoshop-fill text-2xl text-gray-700"></i>
+<div class="absolute bottom-full mb-2 bg-secondary text-white text-xs py-1 px-3 !rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Photoshop</div>
+</div>
+<span class="text-sm text-gray-600">Photoshop</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 !rounded-full mb-4 tool-icon group relative">
+<i class="ri-adobe-illustrator-fill text-2xl text-gray-700"></i>
+<div class="absolute bottom-full mb-2 bg-secondary text-white text-xs py-1 px-3 !rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Illustrator</div>
+</div>
+<span class="text-sm text-gray-600">Illustrator</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 !rounded-full mb-4 tool-icon group relative">
+<i class="ri-html5-fill text-2xl text-gray-700"></i>
+<div class="absolute bottom-full mb-2 bg-secondary text-white text-xs py-1 px-3 !rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">HTML5</div>
+</div>
+<span class="text-sm text-gray-600">HTML5</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 !rounded-full mb-4 tool-icon group relative">
+<i class="ri-css3-fill text-2xl text-gray-700"></i>
+<div class="absolute bottom-full mb-2 bg-secondary text-white text-xs py-1 px-3 !rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">CSS3</div>
+</div>
+<span class="text-sm text-gray-600">CSS3</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 !rounded-full mb-4 tool-icon group relative">
+<i class="ri-javascript-fill text-2xl text-gray-700"></i>
+<div class="absolute bottom-full mb-2 bg-secondary text-white text-xs py-1 px-3 !rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">JavaScript</div>
+</div>
+<span class="text-sm text-gray-600">JavaScript</span>
+</div>
+</div>
+</div>
+	</section>
+	
+	<section class="py-20 bg-secondary text-white">
+		<div class="container mx-auto px-6 text-center">
+<h2 class="text-4xl font-bold mb-6 slide-in">Inspired? Let's Create Together</h2>
+<p class="text-xl text-white/80 max-w-2xl mx-auto mb-10 slide-in">Ready to transform your ideas into captivating digital experiences? Let's collaborate on your next project and create something extraordinary.</p>
+<button class="bg-primary text-white px-10 py-4 text-lg font-semibold !rounded-button glow-button slide-in whitespace-nowrap">Get in Touch</button>
+</div>
+	</section>
+	<section id="testimonials" class="py-20 bg-gray-50">
+		<div class="container mx-auto px-6">
+<h2 class="text-4xl font-bold text-secondary text-center mb-16 slide-in">Client Testimonials</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-white p-8 !rounded-lg shadow-md slide-in">
+<div class="text-primary text-4xl mb-4">"</div>
+<p class="text-gray-600 mb-6">Working with this designer was a game-changer for our brand. Their ability to translate our vision into a cohesive visual identity exceeded our expectations. The attention to detail and innovative approach resulted in a design that truly stands out in our industry.</p>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-gray-200 !rounded-full flex items-center justify-center mr-4">
+<i class="ri-user-fill text-gray-500"></i>
+</div>
+<div>
+<h4 class="font-semibold text-secondary">Francis Kabuga</h4>
+<p class="text-sm text-gray-500">Marketing Director, Elevate Brands</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-8 !rounded-lg shadow-md slide-in">
+<div class="text-primary text-4xl mb-4">"</div>
+<p class="text-gray-600 mb-6">The redesign of our e-commerce platform was flawless. Not only did they create a visually stunning interface, but they also deeply understood user behavior, resulting in a 35% increase in conversion rates within the first month after launch.</p>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-gray-200 !rounded-full flex items-center justify-center mr-4">
+<i class="ri-user-fill text-gray-500"></i>
+</div>
+<div>
+<h4 class="font-semibold text-secondary">Elphas Okanga</h4>
+<p class="text-sm text-gray-500">CEO, Urban Outfitters</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-8 !rounded-lg shadow-md slide-in">
+<div class="text-primary text-4xl mb-4">"</div>
+<p class="text-gray-600 mb-6">Their approach to our app redesign was methodical and user-centered. They conducted thorough research, created intuitive workflows, and delivered a product that our users love. Our app store ratings improved from 3.2 to 4.8 stars!</p>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-gray-200 !rounded-full flex items-center justify-center mr-4">
+<i class="ri-user-fill text-gray-500"></i>
+</div>
+<div>
+<h4 class="font-semibold text-secondary">Ariana Wamboi</h4>
+<p class="text-sm text-gray-500">Product Manager, TechFlow</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+	</section>
+<!-- Footer -->
+    <footer class="bg-secondary text-white py-12 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="index.html" class="inline-block mb-4 flex items-center">
+  			<img src="Images/MD_Logo-removebg-Pink.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" />
+			</a>
+                    <p class="text-gray-400 mb-6">Creating exceptional digital experiences that elevate brands and engage audiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/mahmud_designs/?hl=en" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-instagram-line ri-lg"></i>
+			</a>
+                        <a href="https://wa.me/254113832100?text=Hello" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-whatsapp-line ri-lg"></i>
+			</a>
+                        <a href="https://www.linkedin.com/in/mahmud-salim-1b3169288/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-linkedin-line ri-lg"></i>
+			</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Web%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Web Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Graphic%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Graphic Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20UI/UX%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">UI/UX Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Branding" class="text-gray-400 hover:text-primary transition-colors duration-300">Branding</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Motion%20Graphics" class="text-gray-400 hover:text-primary transition-colors duration-300">Motion Graphics</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Mobile%20App%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Mobile App Design</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary transition-colors duration-300">About</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Portfolio</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Services</a></li>
+                        <li><a href="contacts.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-map-pin-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">Nairobi, Kenya</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-mail-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">mdesigns.letstalk@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-phone-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">+254 113 832 100</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Mahmud Designs. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="privacy-policy.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                    <a href="terms-of-services.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Terms of Service</a>
+                    <a href="cookie-policy.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+<div class="lightbox">
+<div class="lightbox-content">
+<img src="" alt="" class="max-w-full max-h-full !rounded-lg">
+</div>
+<button class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center bg-white/10 !rounded-full text-white">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<script id="cursor-script">
+document.addEventListener('DOMContentLoaded', function() {
+const cursor = document.querySelector('.custom-cursor');
+if(cursor) {
+document.addEventListener('mousemove', function(e) {
+cursor.style.left = e.clientX + 'px';
+cursor.style.top = e.clientY + 'px';
+});
+document.addEventListener('mousedown', function() {
+cursor.classList.add('hover');
+});
+document.addEventListener('mouseup', function() {
+cursor.classList.remove('hover');
+});
+const buttons = document.querySelectorAll('button, a');
+buttons.forEach(button => {
+button.addEventListener('mouseenter', function() {
+cursor.classList.add('hover');
+});
+button.addEventListener('mouseleave', function() {
+cursor.classList.remove('hover');
+});
+});
+}
+});
+</script>
+<script id="scroll-script">
+document.addEventListener('DOMContentLoaded', function() {
+const progressBar = document.querySelector('.progress-bar');
+window.addEventListener('scroll', function() {
+const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+const scrollPercentage = (scrollTop / scrollHeight) * 100;
+progressBar.style.width = scrollPercentage + '%';
+const slideInElements = document.querySelectorAll('.slide-in:not(.active)');
+slideInElements.forEach(element => {
+const elementTop = element.getBoundingClientRect().top;
+const elementVisible = 150;
+if (elementTop < window.innerHeight - elementVisible) {
+element.classList.add('active');
+}
+});
+});
+// Trigger initial scroll to activate elements in view
+window.dispatchEvent(new Event('scroll'));
+});
+</script>
+<script id="carousel-script">
+document.addEventListener('DOMContentLoaded', function() {
+const carousel = document.querySelector('.carousel-container');
+if(!carousel) return;
+const slides = document.querySelectorAll('.carousel-slide');
+if(!slides.length) return;
+const slidesContainer = document.querySelector('.carousel-container .flex');
+if(!slidesContainer) return;
+const prevButton = document.querySelector('.carousel-prev');
+const nextButton = document.querySelector('.carousel-next');
+const dots = document.querySelectorAll('.carousel-dot');
+let currentIndex = 0;
+const totalSlides = slides.length;
+function updateCarousel() {
+slides.forEach((slide, index) => {
+slide.classList.remove('active', 'prev', 'next');
+if (index === currentIndex) {
+slide.classList.add('active');
+} else if (index < currentIndex) {
+slide.classList.add('prev');
+} else {
+slide.classList.add('next');
+}
+});
+dots.forEach((dot, index) => {
+dot.classList.toggle('bg-primary', index === currentIndex);
+dot.classList.toggle('bg-gray-300', index !== currentIndex);
+});
+}
+function goToSlide(index) {
+currentIndex = (index + totalSlides) % totalSlides;
+updateCarousel();
+}
+prevButton.addEventListener('click', () => {
+goToSlide(currentIndex - 1);
+});
+nextButton.addEventListener('click', () => {
+goToSlide(currentIndex + 1);
+});
+dots.forEach((dot, index) => {
+dot.addEventListener('click', () => {
+goToSlide(index);
+});
+});
+// Auto-play functionality
+let autoplayInterval = setInterval(() => {
+goToSlide(currentIndex + 1);
+}, 5000);
+carousel.addEventListener('mouseenter', () => {
+clearInterval(autoplayInterval);
+});
+carousel.addEventListener('mouseleave', () => {
+autoplayInterval = setInterval(() => {
+goToSlide(currentIndex + 1);
+}, 5000);
+});
+// Initialize carousel
+updateCarousel();
+});
+</script>
+<script id="lightbox-script">
+document.addEventListener('DOMContentLoaded', function() {
+const lightbox = document.querySelector('.lightbox');
+if(!lightbox) return;
+const lightboxImg = lightbox.querySelector('img');
+if(!lightboxImg) return;
+const lightboxClose = lightbox.querySelector('button');
+if(!lightboxClose) return;
+const projectButtons = document.querySelectorAll('.project-overlay button');
+if(!projectButtons.length) return;
+projectButtons.forEach(button => {
+button.addEventListener('click', function(e) {
+e.preventDefault();
+const projectCard = this.closest('.project-card');
+const projectImg = projectCard.querySelector('img');
+lightboxImg.src = projectImg.src;
+lightboxImg.alt = projectImg.alt;
+lightbox.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+});
+lightboxClose.addEventListener('click', function() {
+lightbox.classList.remove('active');
+document.body.style.overflow = '';
+});
+lightbox.addEventListener('click', function(e) {
+if (e.target === lightbox) {
+lightbox.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+});
+</script>
+<script id="button-effect-script">
+document.addEventListener('DOMContentLoaded', function() {
+const buttons = document.querySelectorAll('.glow-button');
+buttons.forEach(button => {
+button.addEventListener('click', function(e) {
+const rect = button.getBoundingClientRect();
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+const ripple = document.createElement('span');
+ripple.classList.add('ripple');
+ripple.style.left = x + 'px';
+ripple.style.top = y + 'px';
+button.appendChild(ripple);
+setTimeout(() => {
+ripple.remove();
+}, 600);
+});
+});
+});
+</script>
+</body>
+</html>

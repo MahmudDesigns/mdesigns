@@ -1,0 +1,949 @@
+S<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahmud Designs</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#ff4da6',secondary:'#000000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" href="Images/MD%20Favicon%20(1).png">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            cursor: none;
+            overflow-x: hidden;
+        }
+        
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ff4da6;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.2s ease;
+        }
+        
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #ff4da6;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+        
+        a:hover ~ .cursor, button:hover ~ .cursor {
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 100px;
+            background-color: rgba(255, 77, 166, 0.2);
+            border-radius: 3px;
+            z-index: 100;
+        }
+        
+        .scroll-indicator-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ff4da6;
+            border-radius: 3px;
+            transition: height 0.1s ease;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #ff4da6;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ff4da6 }
+        }
+        
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 77, 166, 0.1);
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: -100px;
+            animation-delay: 2s;
+        }
+        
+        .shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: -100px;
+            left: 30%;
+            animation-delay: 4s;
+        }
+        
+        .shape:nth-child(4) {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            left: 70%;
+            animation-delay: 6s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .skill-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #ff4da6;
+            width: 0%;
+            transition: width 1.5s ease;
+        }
+        
+        .timeline-item {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .timeline-item:nth-child(even) {
+            transform: translateX(30px);
+        }
+        
+        .timeline-connector {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: rgba(255, 77, 166, 0.3);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 16px;
+            height: 16px;
+            background-color: #ff4da6;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .stat-card {
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px) rotate(2deg);
+        }
+        
+        .counter {
+            display: inline-block;
+        }
+        
+        .glitch-text {
+            position: relative;
+            animation: glitch 5s infinite;
+        }
+        
+        @keyframes glitch {
+            0% {
+                transform: skew(0deg);
+                text-shadow: none;
+            }
+            2% {
+                transform: skew(3deg);
+                text-shadow: 3px 0 0 rgba(255, 77, 166, 0.7), -3px 0 0 rgba(0, 255, 255, 0.7);
+            }
+            4% {
+                transform: skew(-3deg);
+                text-shadow: 3px 0 0 rgba(255, 77, 166, 0.7), -3px 0 0 rgba(0, 255, 255, 0.7);
+            }
+            5% {
+                transform: skew(0deg);
+                text-shadow: none;
+            }
+            100% {
+                transform: skew(0deg);
+                text-shadow: none;
+            }
+        }
+        
+        .btn-cta {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cta:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn-cta:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            20% {
+                transform: scale(25, 25);
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
+        }
+        
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-cta:active {
+            transform: translateY(1px);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #ff4da6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    
+    <div class="scroll-indicator">
+        <div class="scroll-indicator-progress"></div>
+    </div>
+    
+    <header class="fixed top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+ 	    <img src="Images/MD_Logo-removebg-Black.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" />
+	    </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link text-secondary font-medium">Home</a>
+                <a href="services.html" class="nav-link text-primary font-medium">Services</a>
+                <a href="portfolio.html" class="nav-link text-secondary font-medium">Portfolio</a>
+                <a href="#facts" class="nav-link text-secondary font-medium">Fun Facts</a>
+                <a href="contacts.html" class="nav-link text-secondary font-medium">Contact</a>
+            </nav>
+            <button class="md:hidden w-10 h-10 flex items-center justify-center text-gray-800 hover:text-primary !rounded-button">
+                <i class="ri-menu-line ri-lg"></i>
+            </button>
+        </div>
+    </header>
+    
+    <section id="hero" class="min-h-screen flex items-center relative overflow-hidden">
+        <div class="animated-bg">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 fade-in">
+                    <span class="text-primary">Get</span> to Know <span class="text-primary">Me</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-10 fade-in">
+                    I'm a creative designer with a passion for crafting beautiful, functional digital experiences that leave a lasting impression.
+                </p>
+                <a href="#about" class="inline-block bg-primary text-white py-3 px-8 rounded-button font-medium hover:bg-opacity-90 transition-all duration-300 btn-cta whitespace-nowrap">
+                    Discover My Story
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <div class="relative overflow-hidden rounded-lg shadow-xl">
+                        <img src="Images\MeAlonee.jpg" alt="Mahmud Portrait" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                        <span class="text-primary">Personal</span> Bio
+                    </h2>
+                    <div class="space-y-4">
+                        <p class="text-lg text-gray-700">
+                            I'm Mahmud Salim, a multidisciplinary designer with over 8 years of experience creating digital experiences that blend form and function. My journey began in traditional graphic design before evolving into the digital realm, where I found my true passion.
+                        </p>
+                        <p class="text-lg text-gray-700">
+                            I believe that great design solves problems while creating emotional connections. My approach combines strategic thinking with creative execution, resulting in work that not only looks beautiful but also delivers meaningful results for clients.
+                        </p>
+                        <p class="text-lg text-gray-700">
+                            When I'm not designing, you'll find me exploring new art exhibitions, experimenting with photography, or hiking through nature to find fresh inspiration. I'm constantly learning and evolving my craft to stay at the cutting edge of design innovation.
+                        </p>
+                    </div>
+                    <div class="mt-8 flex space-x-4">
+                        <a href="https://www.instagram.com/mahmud_designs/?hl=en" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-opacity-90 transition-all duration-300">
+    			<i class="ri-instagram-line ri-lg"></i>
+			</a>
+                        <a href="https://wa.me/254113832100?text=Hello" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-opacity-90 transition-all duration-300">
+                            <i class="ri-whatsapp-line ri-lg"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/mahmud-salim-1b3169288/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-opacity-90 transition-all duration-300">
+                            <i class="ri-linkedin-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="skills" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 fade-in">
+                <span class="text-primary">Skills</span> Overview
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mb-6">
+                        <i class="ri-layout-4-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">UI/UX Design</h3>
+                    <p class="text-gray-600 mb-6">Creating intuitive, user-centered interfaces with a focus on accessibility and delightful interactions.</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" data-width="95"></div>
+                    </div>
+                    <div class="mt-2 text-right text-sm text-gray-500">
+                        <span class="counter" data-target="95">0</span>%
+                    </div>
+                </div>
+                
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mb-6">
+                        <i class="ri-code-s-slash-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Front-end Development</h3>
+                    <p class="text-gray-600 mb-6">Translating designs into responsive, interactive websites using modern HTML, CSS, and JavaScript.</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" data-width="85"></div>
+                    </div>
+                    <div class="mt-2 text-right text-sm text-gray-500">
+                        <span class="counter" data-target="85">0</span>%
+                    </div>
+                </div>
+                
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mb-6">
+                        <i class="ri-palette-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Brand Identity</h3>
+                    <p class="text-gray-600 mb-6">Developing cohesive visual systems that communicate brand values and connect with target audiences.</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" data-width="90"></div>
+                    </div>
+                    <div class="mt-2 text-right text-sm text-gray-500">
+                        <span class="counter" data-target="90">0</span>%
+                    </div>
+                </div>
+                
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mb-6">
+                        <i class="ri-movie-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Motion Design</h3>
+                    <p class="text-gray-600 mb-6">Creating engaging animations and micro-interactions that enhance user experience and storytelling.</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" data-width="80"></div>
+                    </div>
+                    <div class="mt-2 text-right text-sm text-gray-500">
+                        <span class="counter" data-target="80">0</span>%
+                    </div>
+                </div>
+                
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mb-6">
+                        <i class="ri-user-voice-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">User Research</h3>
+                    <p class="text-gray-600 mb-6">Conducting interviews, usability testing, and analyzing data to inform design decisions.</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" data-width="75"></div>
+                    </div>
+                    <div class="mt-2 text-right text-sm text-gray-500">
+                        <span class="counter" data-target="75">0</span>%
+                    </div>
+                </div>
+                
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mb-6">
+                        <i class="ri-artboard-2-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Illustration</h3>
+                    <p class="text-gray-600 mb-6">Creating custom illustrations and visual elements that enhance brand storytelling and user engagement.</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" data-width="85"></div>
+                    </div>
+                    <div class="mt-2 text-right text-sm text-gray-500">
+                        <span class="counter" data-target="85">0</span>%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="experience" class="py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 fade-in">
+                <span class="text-primary">Experience</span> Timeline
+            </h2>
+            
+            <div class="relative">
+                <div class="timeline-connector"></div>
+                
+                <div class="grid grid-cols-1 gap-12">
+                    <div class="timeline-item relative">
+                        <div class="timeline-dot"></div>
+                        <div class="md:w-1/2 md:ml-auto md:pl-12">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-bold text-primary">Senior UX Designer</h3>
+                                    <span class="text-sm text-gray-500">2023 - Present</span>
+                                </div>
+                                <h4 class="text-lg font-medium mb-3">Innovative Digital Agency</h4>
+                                <p class="text-gray-600">Leading design strategy for enterprise clients, managing a team of designers, and implementing design systems that scale across multiple platforms.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Design Systems</span>
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Team Leadership</span>
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Enterprise UX</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item relative">
+                        <div class="timeline-dot"></div>
+                        <div class="md:w-1/2 md:pr-12">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-bold text-primary">UI/UX Designer</h3>
+                                    <span class="text-sm text-gray-500">2020 - 2023</span>
+                                </div>
+                                <h4 class="text-lg font-medium mb-3">Tech Startup</h4>
+                                <p class="text-gray-600">Redesigned the company's flagship product, resulting in a 40% increase in user engagement and a significant reduction in customer support inquiries.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Product Design</span>
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">User Testing</span>
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Prototyping</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item relative">
+                        <div class="timeline-dot"></div>
+                        <div class="md:w-1/2 md:ml-auto md:pl-12">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-bold text-primary">Visual Designer</h3>
+                                    <span class="text-sm text-gray-500">2018 - 2020</span>
+                                </div>
+                                <h4 class="text-lg font-medium mb-3">Creative Agency</h4>
+                                <p class="text-gray-600">Created brand identities and marketing materials for clients across various industries, collaborating closely with marketing and development teams.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Branding</span>
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Visual Design</span>
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Marketing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item relative">
+                        <div class="timeline-dot"></div>
+                        <div class="md:w-1/2 md:pr-12">
+                            <div class="bg-white p-6 rounded-lg shadow-lg">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-bold text-primary">Graphic Designer</h3>
+                                    <span class="text-sm text-gray-500">2016 - 2018</span>
+                                </div>
+                                <h4 class="text-lg font-medium mb-3">Design Studio</h4>
+                                <p class="text-gray-600">Developed print and digital assets for small businesses and startups, focusing on creating cohesive visual identities across multiple touchpoints.</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Print Design</span>
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Typography</span>
+                                    <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Identity Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="facts" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 fade-in">
+                <span class="text-primary">Fun</span> Facts
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="stat-card bg-white p-6 rounded-lg shadow-lg text-center fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mx-auto mb-4">
+                        <i class="ri-briefcase-4-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-2">
+                        <span class="counter" data-target="120">0</span>+
+                    </h3>
+                    <p class="text-gray-600">Projects Completed</p>
+                </div>
+                
+                <div class="stat-card bg-white p-6 rounded-lg shadow-lg text-center fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mx-auto mb-4">
+                        <i class="ri-cup-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-2">
+                        <span class="counter" data-target="1458">0</span>
+                    </h3>
+                    <p class="text-gray-600">Cups of Coffee</p>
+                </div>
+                
+                <div class="stat-card bg-white p-6 rounded-lg shadow-lg text-center fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mx-auto mb-4">
+                        <i class="ri-time-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-2">
+                        <span class="counter" data-target="8760">0</span>
+                    </h3>
+                    <p class="text-gray-600">Hours of Design</p>
+                </div>
+                
+                <div class="stat-card bg-white p-6 rounded-lg shadow-lg text-center fade-in">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary bg-opacity-10 text-primary rounded-full mx-auto mb-4">
+                        <i class="ri-award-line ri-2x"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-2">
+                        <span class="counter" data-target="12">0</span>
+                    </h3>
+                    <p class="text-gray-600">Design Awards</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-20 bg-black text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 glitch-text fade-in">
+                "Design is not just what it looks like and feels like. <br>
+                <span class="text-primary">Design is how it works.</span>"
+            </h2>
+            <p class="text-lg text-gray-400 fade-in">— Steve Jobs</p>
+        </div>
+    </section>
+    
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-in">
+                Ready to <span class="text-primary">Work Together</span>?
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-10 fade-in">
+                Let's create something amazing. Reach out to discuss your project and how we can bring your vision to life.
+            </p>
+            <a href="https://wa.me/254113832100" class="inline-block bg-primary text-white py-4 px-10 rounded-button font-medium text-lg hover:bg-opacity-90 transition-all duration-300 btn-cta whitespace-nowrap">
+                Get In Touch
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="index.html" class="inline-block mb-4 flex items-center">
+  			<img src="Images/MD_Logo-removebg-Pink.png" alt="Mahmud Designs" class="h-10 w-auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<span class=\'text-3xl font-[Pacifico] text-primary\'>Mahmud</span>');" />
+			</a>
+                    <p class="text-gray-400 mb-6">Creating exceptional digital experiences that elevate brands and engage audiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/mahmud_designs/?hl=en" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-instagram-line ri-lg"></i>
+			</a>
+                        <a href="https://wa.me/254113832100?text=Hello" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-whatsapp-line ri-lg"></i>
+			</a>
+                        <a href="https://www.linkedin.com/in/mahmud-salim-1b3169288/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors duration-300">
+    			<i class="ri-linkedin-line ri-lg"></i>
+			</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Web%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Web Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Graphic%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Graphic Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20UI/UX%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">UI/UX Design</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Branding" class="text-gray-400 hover:text-primary transition-colors duration-300">Branding</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Motion%20Graphics" class="text-gray-400 hover:text-primary transition-colors duration-300">Motion Graphics</a></li>
+                        <li><a href="https://wa.me/254113832100?text=I%20need%20to%20know%20more%20about%20Mobile%20App%20Design" class="text-gray-400 hover:text-primary transition-colors duration-300">Mobile App Design</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-primary transition-colors duration-300">About</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Portfolio</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Services</a></li>
+                        <li><a href="contacts.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-map-pin-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">Nairobi, Kenya</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-mail-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">mdesigns.letstalk@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-3 mt-1">
+                                <i class="ri-phone-line text-primary"></i>
+                            </div>
+                            <span class="text-gray-400">+254 113 832 100</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Mahmud Designs. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="privacy-policy.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                    <a href="terms-of-services.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Terms of Service</a>
+                    <a href="cookie-policy.html" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script id="cursor-animation">
+        document.addEventListener('DOMContentLoaded', function() {
+            const cursor = document.querySelector('.cursor');
+            const cursorDot = document.querySelector('.cursor-dot');
+            
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+            });
+            
+            document.addEventListener('mousedown', function() {
+                cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            });
+            
+            document.addEventListener('mouseup', function() {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+    </script>
+    
+    <script id="scroll-indicator-animation">
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollIndicator = document.querySelector('.scroll-indicator-progress');
+            
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.body.offsetHeight - window.innerHeight;
+                const scrollPercent = scrollTop / docHeight * 100;
+                
+                scrollIndicator.style.height = scrollPercent + '%';
+            });
+        });
+    </script>
+    
+    <script id="fade-in-animation">
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', fadeInOnScroll);
+            fadeInOnScroll(); // Initial check
+        });
+    </script>
+    
+    <script id="progress-bar-animation">
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-bar-fill');
+            
+            const animateProgressBars = function() {
+                progressBars.forEach(bar => {
+                    const elementTop = bar.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width + '%';
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateProgressBars);
+            setTimeout(animateProgressBars, 500); // Initial animation with delay
+        });
+    </script>
+    
+    <script id="counter-animation">
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll('.counter');
+            
+            const animateCounters = function() {
+                counters.forEach(counter => {
+                    const elementTop = counter.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000; // ms
+                        const stepTime = 50; // ms
+                        const totalSteps = duration / stepTime;
+                        const stepValue = target / totalSteps;
+                        let current = 0;
+                        
+                        const timer = setInterval(() => {
+                            current += stepValue;
+                            counter.textContent = Math.round(current);
+                            
+                            if (current >= target) {
+                                counter.textContent = target;
+                                clearInterval(timer);
+                            }
+                        }, stepTime);
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', function() {
+                animateCounters();
+            });
+            
+            setTimeout(animateCounters, 500); // Initial animation with delay
+        });
+    </script>
+    
+    <script id="timeline-animation">
+        document.addEventListener('DOMContentLoaded', function() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const animateTimeline = function() {
+                timelineItems.forEach(item => {
+                    const elementTop = item.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        item.classList.add('visible');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateTimeline);
+            setTimeout(animateTimeline, 500); // Initial animation with delay
+        });
+    </script>
+    
+    <script id="sticky-header">
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', function() {
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 100) {
+                    header.classList.add('py-2', 'shadow-md');
+                    header.classList.remove('py-4');
+                } else {
+                    header.classList.add('py-4');
+                    header.classList.remove('py-2', 'shadow-md');
+                }
+                
+                if (currentScrollY > lastScrollY && currentScrollY > 300) {
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    header.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollY = currentScrollY;
+            });
+        });
+    </script>
+    
+    <script id="smooth-scroll">
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
